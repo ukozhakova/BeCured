@@ -18,7 +18,6 @@ urlpatterns = [
     path('request_lists/', views.requestLists.as_view()),
     path('request_lists/<int:pk>/', views.requestListDetail.as_view()),
     path('response_page', views.responsePage),
-
     path('login/', views.login),
     path('logout/', views.logout),
     # path('users/', views.UserList.as_view()),
