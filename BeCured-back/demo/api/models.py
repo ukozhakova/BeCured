@@ -11,8 +11,11 @@ class Doctor(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     speciality = models.CharField(max_length=200)
+    patient_diagnosis = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=200)
     email_address = models.CharField(max_length=200)
+    # response = models.ForeignKey(Response, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return '{}, {}, {}'.format(self.surname, self.name, self.speciality)
