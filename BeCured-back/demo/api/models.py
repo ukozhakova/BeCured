@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class CategoryManager(models.Manager):
+class PatientManager(models.Manager):
     def for_user(self, user):
         return self.filter(created_by=user)
 
@@ -34,7 +34,7 @@ class Patient(models.Model):
     def __str__(self):
         return '{}, {}, {}'.format(self.surname, self.name, self.diagnosis)
 
-class Request(models.Model):
+class Rrequest(models.Model):
     name = models.CharField(max_length=200)
     text = models.CharField(max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -44,11 +44,11 @@ class Request(models.Model):
     def __str__(self):
         return '{}: {}'.format(self.name, self.created_at)
 
-class Response(models.Model):
+class Rresponse(models.Model):
     name = models.CharField(max_length=200)
     text = models.CharField(max_length=5000)
     created_at = models.DateTimeField(auto_now_add=True)
-    request = models.ForeignKey(Request, on_delete=models.CASCADE)
+    request = models.ForeignKey(Rrequest, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{}: {}'.format(self.name, self.created_at)

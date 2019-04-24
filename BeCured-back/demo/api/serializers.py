@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor, Patient, Request, Response
+from .models import Doctor, Patient, Rrequest, Rresponse
 from django.contrib.auth.models import User
 
 class UserSerializer(serializers.ModelSerializer):
@@ -73,7 +73,7 @@ class RequestSerializer2(serializers.ModelSerializer):
     patient = PatientSerializer()
 
     class Meta:
-        model = Request
+        model = Rrequest
         fields = ('id', 'name', 'created_by',)
         # fields = '__all__'
 
@@ -86,7 +86,7 @@ class ResponseSerializer2(serializers.ModelSerializer):
     request = RequestSerializer2()
 
     class Meta:
-        model = Request
+        model = Rrequest
         fields = ('id', 'name', 'created_by',)
         # fields = '__all__'
 
