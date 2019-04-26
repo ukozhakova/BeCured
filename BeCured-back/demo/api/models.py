@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class PatientManager(models.Manager):
+class DoctorManager(models.Manager):
     def for_user(self, user):
         return self.filter(created_by=user)
 
@@ -11,9 +11,10 @@ class Doctor(models.Model):
     name = models.CharField(max_length=200)
     surname = models.CharField(max_length=200)
     speciality = models.CharField(max_length=200)
-    patient_diagnosis = models.CharField(max_length=200)
+    patient_diagnosis = models.CharField(max_length=200, default="")
     phone_number = models.CharField(max_length=200)
     email_address = models.CharField(max_length=200)
+    objects = DoctorManager()
     # response = models.ForeignKey(Response, on_delete=models.CASCADE)
 
 
