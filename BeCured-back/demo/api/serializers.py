@@ -74,8 +74,7 @@ class RequestSerializer2(serializers.ModelSerializer):
 
     class Meta:
         model = Rrequest
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        fields = '__all__'
 
 
 class ResponseSerializer2(serializers.ModelSerializer):
@@ -87,6 +86,5 @@ class ResponseSerializer2(serializers.ModelSerializer):
 
     class Meta:
         model = Rrequest
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        fields = '__all__'
 
