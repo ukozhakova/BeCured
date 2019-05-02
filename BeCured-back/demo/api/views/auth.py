@@ -29,5 +29,5 @@ def logout(request):
     request.auth.delete()
     return Response(status=status.HTTP_200_OK)
 
-@api_view(['POST'])
-def signup(request):
+# @api_view(['POST'])
+# def signup(request):
