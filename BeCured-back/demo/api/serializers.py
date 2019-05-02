@@ -11,9 +11,11 @@ class DoctorSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
     speciality = serializers.CharField(required=True)
-    patient_diagnosis = serializers.CharField(required=True)
+    patient_diagnosis = serializers.CharField()
     phone_number = serializers.CharField()
     email_address = serializers.CharField()
+    created_by = UserSerializer(read_only=True)
+
 
     def create(self, validated_data):
         doctor = Doctor(**validated_data)
@@ -31,14 +33,15 @@ class DoctorSerializer2(serializers.ModelSerializer):
     name = serializers.CharField()
     surname = serializers.CharField()
     speciality = serializers.CharField(required=True)
+    patient_diagnosis = serializers.CharField()
     phone_number = serializers.CharField()
     email_address = serializers.CharField()
     created_by = UserSerializer(read_only=True)
 
     class Meta:
         model = Doctor
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        # fields = ('id', 'name', 'created_by',)
+        fields = '__all__'
 
 
 class PatientSerializer(serializers.Serializer):
@@ -74,8 +77,7 @@ class RequestSerializer2(serializers.ModelSerializer):
 
     class Meta:
         model = Rrequest
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        fields = '__all__'
 
 
 class ResponseSerializer2(serializers.ModelSerializer):
@@ -86,7 +88,6 @@ class ResponseSerializer2(serializers.ModelSerializer):
     request = RequestSerializer2()
 
     class Meta:
-        model = Rrequest
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        model = Rresponse
+        fields = '__all__'
 
