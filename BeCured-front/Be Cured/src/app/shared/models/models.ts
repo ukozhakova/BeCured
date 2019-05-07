@@ -2,9 +2,12 @@ export interface IDoctor{
     id: number;
     name: string;
     surname: string;
+    address: string;
+    mobile: string;
+    dob: Date;
     speciality: string;
-    phone_number: string; 
-    email_address: string;
+    gender: string;
+    qualification: string;
   }
   
 export interface IPatient{
@@ -14,21 +17,39 @@ export interface IPatient{
     diagnosis: string;
     age: number;
     gender: string;
-    phone_number: string;
+    mobile: string;
     email_address: string;
+    address: string;
     allergies: string;
+    doctor: IDoctor;
   }
 
-export interface IRequest{
+export interface IReceptionist{
     id: number;
     name: string;
-    text: string;
-    created_at: Date;
+    surname: string;
+    mobile: string;
+    dob: Date;
+    gender: string;
   }
 
-export interface IResponse{
-    id: number;
-    name: string;
-    text: string;
+export interface ITreatment{
+    patient: IPatient;
+    doctor: IDoctor;
+    title: string;
+    description: string;
     created_at: Date;
+    updated_at: Date;
+  }
+  export interface IAppointment{
+    patient: IPatient;
+    doctor: IDoctor;
+    time: Date;
+  }
+  export interface IBill{
+    date: Date;
+    patient: IPatient;
+    doctor: IDoctor;
+    treatment: ITreatment;
+    amount: number;
   }

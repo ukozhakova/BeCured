@@ -1,19 +1,25 @@
 from rest_framework import serializers
-from .models import Doctor, Patient, Request, Response
+from .models import Patient, Doctor, Receptionist, Treatment, Appointment, Bill
 from django.contrib.auth.models import User
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email',)
 
+
 class DoctorSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
+    surname = serializers.CharField(reqired=True)
+    email_address = serializers.CharField(reqired=False)
+    mobile = serializers.CharField(reqired=True)
+    dob = serializers.DateField(required=True)
     speciality = serializers.CharField(required=True)
-    patient_diagnosis = serializers.CharField(required=True)
-    phone_number = serializers.CharField()
-    email_address = serializers.CharField()
+    gender = serializers.CharField(reqired=True)
+    qualification = serializers.CharField(reqired=True)
+    created_by = UserSerializer(read_only=True)
 
     def create(self, validated_data):
         doctor = Doctor(**validated_data)
@@ -26,32 +32,32 @@ class DoctorSerializer(serializers.Serializer):
         return instance
 
 
-class DoctorSerializer2(serializers.ModelSerializer):
+class ReceptionistSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField()
-    surname = serializers.CharField()
-    speciality = serializers.CharField(required=True)
-    phone_number = serializers.CharField()
-    email_address = serializers.CharField()
+    name = serializers.CharField(required=True)
+    surname = serializers.CharField(required=True)
+    mobile = serializers.CharField(required=True)
+    dob = serializers.CharField(required=True)
+    gender = serializers.CharField(required=True)
     created_by = UserSerializer(read_only=True)
 
     class Meta:
-        model = Doctor
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        model = Receptionist
+        fields = '__all__'
 
 
 class PatientSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)
-    surname = serializers.CharField()
-    diagnosis = serializers.CharField()
-    age = serializers.IntegerField()
-    gender = serializers.CharField()
-    phone_number = serializers.CharField()
-    email_address = serializers.CharField()
-    allergies = serializers.CharField()
-    doctor = DoctorSerializer2()
+    surname = serializers.CharField(required=True)
+    diagnosis = serializers.CharField(required=True)
+    age = serializers.IntegerField(required=True)
+    gender = serializers.CharField(required=True)
+    mobile = serializers.CharField(required=True)
+    email_address = serializers.CharField(required=False, default='absent')
+    address = serializers.CharField(required=True)
+    allergies = serializers.CharField(required=True)
+    doctor = DoctorSerializer(read_only=True)
 
     def create(self, validated_data):
         patient = Patient(**validated_data)
@@ -64,29 +70,25 @@ class PatientSerializer(serializers.Serializer):
         return instance
 
 
-class RequestSerializer2(serializers.ModelSerializer):
+class TreatmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(required=True)
-    text = serializers.CharField()
-    created_at = serializers.DateTimeField()
-    doctor = DoctorSerializer2()
-    patient = PatientSerializer()
 
     class Meta:
-        model = Request
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        model = Treatment
+        fields = '_all_'
 
 
-class ResponseSerializer2(serializers.ModelSerializer):
+class AppointmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(required=True)
-    text = serializers.CharField()
-    created_at = serializers.DateTimeField()
-    request = RequestSerializer2()
 
     class Meta:
-        model = Request
-        fields = ('id', 'name', 'created_by',)
-        # fields = '__all__'
+        model = Appointment
+        fields = '_all_'
 
+
+class BillSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Bill
+        fields = '_all_'
