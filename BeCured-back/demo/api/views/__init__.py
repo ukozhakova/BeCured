@@ -1,3 +1,5 @@
-from .cbv import PatientList, PatientDetail, AppointmentDetail, BillDetail, TreatmentDetail
-from .generic_cbv import DoctorDetail, DoctorList, ReceptionistDetail
-from .auth import UserList, logout, login
+from .fbv import doctorLists, doctorListDetail, responseLists, responseListDetail
+
+from .cbv import patientLists, patientListDetail, requestLists, requestListDetail
+# from .generic_cbv import TaskList2, TaskListDetail, Lists
+from .auth import UserList, logout, signin

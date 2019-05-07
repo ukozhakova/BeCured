@@ -12,11 +12,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated, AllowAny )
+    permission_classes = (IsAuthenticated, )
 
 
 @api_view(['POST'])
-def login(request):
+def signin(request):
     serializer = AuthTokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.validated_data.get('user')
@@ -28,3 +28,6 @@ def login(request):
 def logout(request):
     request.auth.delete()
     return Response(status=status.HTTP_200_OK)
+
+# @api_view(['POST'])
+# def signup(request):

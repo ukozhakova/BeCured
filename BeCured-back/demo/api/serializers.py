@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Patient, Doctor, Receptionist, Treatment, Appointment, Bill
+from .models import Doctor, Patient, Rrequest, Rresponse
 from django.contrib.auth.models import User
 
 
@@ -17,9 +17,11 @@ class DoctorSerializer(serializers.Serializer):
     mobile = serializers.CharField(reqired=True)
     dob = serializers.DateField(required=True)
     speciality = serializers.CharField(required=True)
-    gender = serializers.CharField(reqired=True)
-    qualification = serializers.CharField(reqired=True)
+    patient_diagnosis = serializers.CharField()
+    phone_number = serializers.CharField()
+    email_address = serializers.CharField()
     created_by = UserSerializer(read_only=True)
+
 
     def create(self, validated_data):
         doctor = Doctor(**validated_data)
@@ -34,15 +36,17 @@ class DoctorSerializer(serializers.Serializer):
 
 class ReceptionistSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(required=True)
-    surname = serializers.CharField(required=True)
-    mobile = serializers.CharField(required=True)
-    dob = serializers.CharField(required=True)
-    gender = serializers.CharField(required=True)
+    name = serializers.CharField()
+    surname = serializers.CharField()
+    speciality = serializers.CharField(required=True)
+    patient_diagnosis = serializers.CharField()
+    phone_number = serializers.CharField()
+    email_address = serializers.CharField()
     created_by = UserSerializer(read_only=True)
 
     class Meta:
-        model = Receptionist
+        model = Doctor
+        # fields = ('id', 'name', 'created_by',)
         fields = '__all__'
 
 
@@ -74,17 +78,16 @@ class TreatmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Treatment
-        fields = '_all_'
+        model = Rrequest
+        fields = '__all__'
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = Appointment
-        fields = '_all_'
-
+        model = Rresponse
+        fields = '__all__'
 
 class BillSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)

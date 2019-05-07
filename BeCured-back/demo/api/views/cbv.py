@@ -1,15 +1,29 @@
+<<<<<<< HEAD
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
+from ..models import Doctor, Patient, Rresponse, Rrequest
+from ..serializers import DoctorSerializer2, PatientSerializer, RequestSerializer2, ResponseSerializer2
+
+
+class PatientPage(APIView):
+    def get(self, request):
+        patients = Patient.objects.all()
+        serializer = PatientSerializer(patients, many=True)
+=======
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from ..models import Patient, Bill, Treatment, Doctor, Appointment, Receptionist
-from ..serializers import PatientSerializer, AppointmentSerializer, BillSerializer, TreatmentSerializer
+from ..models import Patient, Rrequest
+from ..serializers import PatientSerializer, RequestSerializer2
 
-
-class PatientList(APIView):
+#PATIENT
+class patientLists(APIView):
     def get(self, request):
         patient_lists = Patient.objects.all()
         serializer = PatientSerializer(patient_lists, many=True)
+>>>>>>> 45562c220a1878f12d8f789ae814645da8c53f64
         return Response(serializer.data)
 
     def post(self, request):
@@ -20,7 +34,11 @@ class PatientList(APIView):
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class PatientDetail(APIView):
+<<<<<<< HEAD
+class RequestPage(APIView):
+
+=======
+class patientListDetail(APIView):
     def get_object(self, pk):
         try:
             return Patient.objects.get(id=pk)
@@ -28,132 +46,75 @@ class PatientDetail(APIView):
             raise Http404
 
     def get(self, request, pk):
-        patient = self.get_object(pk)
-        serializer = PatientSerializer(patient)
+        patient_lists = self.get_object(pk)
+        serializer = PatientSerializer(patient_lists)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        patient = self.get_object(pk)
-        serializer = PatientSerializer(instance=patient, data=request.data)
+        patient_lists = self.get_object(pk)
+        serializer = PatientSerializer(instance=patient_lists, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def post(self, request):
-        serializer = PatientSerializer(data=request.data)
-        if serializer.is_valid() and self.request.user.is_authenticated:
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
     def delete(self, request, pk):
-        patient = self.get_object(pk)
-        if self.request.user.is_authenticated and self.request.user==patient.doctor:
-            patient.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        patient_lists = self.get_object(pk)
+        patient_lists.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class AppointmentDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return Appointment.objects.get(id=pk)
-        except Appointment.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk):
-        appointment = self.get_object(pk)
-        serializer = AppointmentSerializer(appointment)
+#REQUEST
+class requestLists(APIView):
+    def get(self, request):
+        request_lists = Rrequest.objects.all()
+        serializer = RequestSerializer2(request_lists, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = AppointmentSerializer(data=request.data)
-        if serializer.is_valid() and self.request.user.is_authenticated:
+        serializer = RequestSerializer2(data=request.data)
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def put(self, request, pk):
-        appointment = self.get_object(pk)
-        if request.user.is_authenticated and request.user == appointment.doctor:
-            serializer = AppointmentSerializer(instance=appointment, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors)
 
-    def delete(self, request, pk):
-        appointment = self.get_object(pk)
-        if request.user.is_authenticated and request.user == appointment.doctor:
-            appointment.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class TreatmentDetail(APIView):
+class requestListDetail(APIView):
+>>>>>>> 45562c220a1878f12d8f789ae814645da8c53f64
     def get_object(self, pk):
         try:
-            return Treatment.objects.get(id=pk)
-        except Treatment.DoesNotExist:
+            return Rrequest.objects.get(id=pk)
+        except Rrequest.DoesNotExist:
             raise Http404
 
     def get(self, request, pk):
-        treatment = self.get_object(pk)
-        serializer = TreatmentSerializer(treatment)
+<<<<<<< HEAD
+        rrequest = self.get_object(pk)
+        serializer = RequestSerializer2(request)
         return Response(serializer.data)
 
-    def post(self, request):
-        serializer = TreatmentSerializer(data=request.data)
-        if serializer.is_valid() and self.request.user.is_authenticated:
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
     def put(self, request, pk):
-        treatment = self.get_object(pk)
-        if request.user.is_authenticated and request.user == treatment.doctor:
-            serializer = TreatmentSerializer(instance=treatment, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors)
-
-    def delete(self, request, pk):
-        treatment = self.get_object(pk)
-        if request.user.is_authenticated and request.user == treatment.doctor:
-            treatment.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class BillDetail(APIView):
-    def get_object(self, pk):
-        try:
-            return Bill.objects.get(id=pk)
-        except Bill.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk):
-        bill = self.get_object(pk)
-        serializer = BillSerializer(bill)
+        rrequest = self.get_object(pk)
+        serializer = RequestSerializer2(instance=request, data=request.data)
+=======
+        request_lists = self.get_object(pk)
+        serializer = RequestSerializer2(request_lists)
         return Response(serializer.data)
 
-    def post(self, request):
-        serializer = BillSerializer(data=request.data)
-        if serializer.is_valid() and self.request.user.is_authenticated:
+    def put(self, request, pk):
+        request_lists = self.get_object(pk)
+        serializer = RequestSerializer2(instance=request_lists, data=request.data)
+>>>>>>> 45562c220a1878f12d8f789ae814645da8c53f64
+        if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def put(self, request, pk):
-        bill = self.get_object(pk)
-        if request.user.is_authenticated and request.user == bill.doctor:
-            serializer = BillSerializer(instance=bill, data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            return Response(serializer.errors)
-
     def delete(self, request, pk):
-        bill = self.get_object(pk)
-        if request.user.is_authenticated and request.user == bill.doctor:
-            bill.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+<<<<<<< HEAD
+        rrequest = self.get_object(pk)
+        rrequest.delete()
+=======
+        request_lists = self.get_object(pk)
+        request_lists.delete()
+>>>>>>> 45562c220a1878f12d8f789ae814645da8c53f64
+        return Response(status=status.HTTP_204_NO_CONTENT)

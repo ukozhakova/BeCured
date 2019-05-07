@@ -5,24 +5,20 @@ DOCTOR_SPECIALITY = ('cardiologist', 'ophthalmologist', 'neuropathologist', 'sur
                      'otorhinolaryngologist', 'endocrinologist')
 USER_GENDER = ('FEMALE', 'MALE')
 
-DIAGNOSIS = ('I10-arterial hypertension', 'Z04.8-others', 'J42-chronical bronchitis', 'J06.9-ARVI',
-             'J44.0-COPD', 'E11-diabetes')
-
-
-class PatientManager(models.Manager):
+class DoctorManager(models.Manager):
     def for_user(self, user):
         return self.filter(created_by=user)
 
 
 class Doctor(models.Model):
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
-    address = models.CharField(max_length=200, null=True)
-    mobile = models.CharField(null=True)
-    dob = models.DateField(blank=True, null=True)
-    speciality = models.CharField(max_length=20, choices=DOCTOR_SPECIALITY, blank=True, null=True)
-    gender = models.CharField(max_length=10, choices=USER_GENDER, default='MALE')
-    qualification = models.CharField(max_length=300, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    surname = models.CharField(max_length=200)
+    speciality = models.CharField(max_length=200)
+    patient_diagnosis = models.CharField(max_length=200, default="")
+    phone_number = models.CharField(max_length=200)
+    email_address = models.CharField(max_length=200)
+    objects = DoctorManager()
+    # response = models.ForeignKey(Response, on_delete=models.CASCADE)
 
     def _str_(self):
         return self.name
@@ -66,8 +62,11 @@ class Treatment(models.Model):
     def __str__(self):
         return self.patient.name
 
-
-class Appointment(models.Model):
+class Rrequest(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.CharField(max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     doctor = models.ForeignKey(User, related_name='app_doctor', on_delete=models.CASCADE)
     time = models.DateTimeField(blank=True, null=True)
@@ -76,12 +75,11 @@ class Appointment(models.Model):
         return self.patient.name
 
 
-class Bill(models.Model):
-    date = models.DateField(auto_now=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(User, related_name='bill_doctor', on_delete=models.CASCADE)
-    treatment = models.ForeignKey(Treatment, on_delete=models.CASCADE)
-    amount = models.IntegerField()
+class Rresponse(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.CharField(max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    request = models.ForeignKey(Rrequest, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.patient.name
