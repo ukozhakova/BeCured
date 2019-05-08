@@ -38,25 +38,5 @@ class Migration(migrations.Migration):
                 ('doctor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Doctor')),
             ],
         ),
-        migrations.CreateModel(
-            name='Request',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('text', models.CharField(max_length=5000)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('doctor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Doctor')),
-                ('patient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Patient')),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Response',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=200)),
-                ('text', models.CharField(max_length=5000)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('request', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.Request')),
-            ],
-        ),
+
     ]

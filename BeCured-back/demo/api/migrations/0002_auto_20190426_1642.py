@@ -10,14 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameModel(
-            old_name='Request',
-            new_name='Rrequest',
-        ),
-        migrations.RenameModel(
-            old_name='Response',
-            new_name='Rresponse',
-        ),
         migrations.AddField(
             model_name='doctor',
             name='patient_diagnosis',
