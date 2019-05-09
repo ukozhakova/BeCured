@@ -1,30 +1,42 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-DOCTOR_SPECIALITY = (('cardiologist', 'cardiologist'), ('ophthalmologist', 'ophthalmologist'),
+DOCTOR_SPECIALITY = (('cardiologist', 'cardiologist'),
+                     ('ophthalmologist', 'ophthalmologist'),
                      ('neuropathologist', 'neuropathologist'),
-                     ('surgeon', 'surgeon'), ('otorhinolaryngologist', 'otorhinolaryngologist'),
+                     ('surgeon', 'surgeon'),
+                     ('otorhinolaryngologist', 'otorhinolaryngologist'),
                      ('endocrinologist', 'endocrinologist'))
+USER_GENDER = (('MALE', 'MALE'), ('FEMALE', 'FEMALE'))
+DIAGNOSIS = (('I10-Arterial hypertension', 'I10-Arterial hypertension'),
+             ('J42-Chronical bronchitis', 'J42-Chronical bronchitis'),
+             ('J06.9- cold', 'J06.9- cold'),
+             ('M42-osteochondrosis', 'M42-osteochondrosis'),
+             ('E10- diabetes', 'E10- diabetes'),
+             ('Z04.8-others', 'Z04.8-others'))
 
-USER_GENDER = (('FEMALE', 'FEMALE'), ('MALE', 'MALE'))
 
-DIAGNOSIS = (('I10', 'Arterial hypertension'), ('J42', 'Chronical bronchitis'), ('J06.9', 'cold'), ('M42', 'osteochondrosis'), ('E10',  'diabetes'))
+class DoctorManager(models.Manager):
+    def for_user_order_by_name(self, user):
+        return self.filter(created_by=user)
 
 
 class PatientManager(models.Manager):
-    def for_user(self, user):
-        return self.filter(doctor=user)
+    def for_user_order_by_name(self, user):
+        return self.filter(created_by=user)
 
 
 class Doctor(models.Model):
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
-    email_address = models.CharField(max_length=100)
-    mobile = models.CharField(max_length=30, null=True)
-    dob = models.DateField(blank=True, null=True)
-    speciality = models.CharField(max_length=50, choices=DOCTOR_SPECIALITY)
-    patient_diagnosis = models.CharField(max_length=50, choices=DIAGNOSIS)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    name = models.CharField(max_length=200)
+    surname = models.CharField(max_length=200)
+    speciality = models.CharField(max_length=200, choices=DOCTOR_SPECIALITY, default='endocrinologist')
+    patient_diagnosis = models.CharField(max_length=200, default="")
+    gender = models.CharField(max_length=10, choices=USER_GENDER, default='MALE')
+    phone_number = models.CharField(max_length=200)
+    email_address = models.CharField(max_length=200)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    objects = DoctorManager()
 
     def _str_(self):
         return self.name
@@ -49,42 +61,46 @@ class Patient(models.Model):
     gender = models.CharField(max_length=10, choices=USER_GENDER, default='MALE')
     mobile = models.CharField(max_length=20, blank=True, null=True)
     email_address = models.EmailField(max_length=100, blank=True, null=True)
-    address = models.CharField(max_length=100, default='Tole bi 59')
+    address = models.CharField(max_length=100)
     allergies = models.CharField(max_length=100)
-    doctor = models.ForeignKey(User, on_delete=models.CASCADE)
-    objects = PatientManager
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='patient_createdby', default='1', on_delete=models.CASCADE)
+
+    objects = PatientManager()
 
     def __str__(self):
         return self.name
 
 
-class Treatments(models.Model):
+class Appointment(models.Model):
+    name = models.CharField(max_length=200)
+    text = models.CharField(max_length=5000)
+    created_at = models.DateTimeField(auto_now_add=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(User, related_name='treat_doctor', on_delete=models.CASCADE)
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=100, blank=True, null=True)
-    created_at = models.DateField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateField(auto_now=True, blank=True, null=True)
+    time = models.TimeField(blank=True, null=True)
 
     def __str__(self):
         return self.patient.name
 
 
-class Bills(models.Model):
-    date = models.DateField(auto_now=True, blank=True)
+class Treatment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    treatment = models.ForeignKey(Treatments, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, related_name='treat_doctor', on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=100, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    def __str__(self):
+        return self.patient.name
+
+
+class Bill(models.Model):
+    date = models.DateTimeField(auto_now=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(User, related_name='bill_doctor', on_delete=models.CASCADE)
     amount = models.IntegerField()
 
     def __str__(self):
-        return self.patient.name
-
-
-class Appointments(models.Model):
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
-    date = models.DateField(blank=True)
-
-    def __str__(self):
-        return self.patient.name
+        return str(self.patient)

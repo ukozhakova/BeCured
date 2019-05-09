@@ -1,33 +1,20 @@
 from django.contrib import admin
-from .models import Doctor, Patient, Bills, Appointments, Treatments, Receptionist
-
+from .models import Doctor, Patient, Appointment, Treatment
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
-
+    list_display = ('id', 'name', 'created_by', )
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'diagnosis', )
+    list_display = ('id', 'name', 'created_by',)
 
 
-@admin.register(Receptionist)
-class ReceptionistAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', )
-
-
-@admin.register(Treatments)
-class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
-
-
-@admin.register(Bills)
-class BillAdmin(admin.ModelAdmin):
-    list_display = ('id', 'patient')
-
-
-@admin.register(Appointments)
+@admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'patient')
+    list_display = ('id', 'name', 'created_at', )
 
+
+@admin.register(Treatment)
+class TreatmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'created_at', )

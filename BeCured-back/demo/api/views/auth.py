@@ -16,18 +16,14 @@ class UserList(generics.ListAPIView):
 
 
 @api_view(['POST'])
-def signin(request):
+def login(request):
     serializer = AuthTokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.validated_data.get('user')
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key})
 
-
 @api_view(['POST'])
 def logout(request):
     request.auth.delete()
     return Response(status=status.HTTP_200_OK)
-
-# @api_view(['POST'])
-# def signup(request):

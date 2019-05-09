@@ -1,0 +1,82 @@
+<ng-container *ngIf="!isLogged">
+  <div class="login">
+    <h1>Wrong username or password, please try again!</h1>
+    <div>
+      <input class="lists" type="text" placeholder="Login" [(ngModel)]="login"/>
+    </div>
+    <div>
+      <input class="lists" type="password" placeholder="Password" [(ngModel)]="password"/>
+    </div>
+    <div>
+      <button class="btn" (click)="auth()">Log in</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLogged">
+  <p class="text">To create new doctor write data below:</p>
+  <div>
+    <input class="lists" placeholder="name" type="text" [(ngModel)]="name" />
+    <input class="lists" placeholder="surname" type="text" [(ngModel)]="surname" />
+    <input class="lists" placeholder="speciality" type="text" [(ngModel)]="speciality" />
+    <input class="lists" placeholder="patient_diagnosis" type="text" [(ngModel)]="patient_diagnosis" />
+    <input class="lists" placeholder="gender" type="text" [(ngModel)]="gender" />
+    <input class="lists" placeholder="phone_number" type="text" [(ngModel)]="phone_number" />
+    <input class="lists" placeholder="email_address" type="text" [(ngModel)]="email_address" />
+    <button class="btn1" (click) = "createDoctor()" >Create Doctor</button>
+  </div>
+
+  <p class="text">Doctors:</p>
+
+
+  <ng-container *ngIf="!loading">
+  <p class="text">Loading...</p>
+  
+  </ng-container>
+
+  <ng-container *ngIf ="loading">
+    <div>
+        <div *ngFor = "let l of doctors">           
+            <input class="lists" type="text" [(ngModel)] = "l.name">  
+            <input class="lists" type="text" [(ngModel)] = "l.surname">  
+            <span class="edit" (click) = "updateDoctor(l)" > UPDATE</span>
+            <span class="delete" (click) = "deleteDoctor(l)" > DELETE</span>
+          </div>
+    </div> 
+  </ng-container>
+    
+  <br>
+  <br>
+
+  <p class="text" (click) = "getPatients(l)">Patient:</p>
+    <div *ngFor = "let l of patients">           
+      <input class="lists" type="text" [(ngModel)] = "l.name">  
+      <input class="lists" type="text" [(ngModel)] = "l.surname">  
+      <span class="delete" (click) = "deletePatient(l)" > DELETE</span>
+    </div>
+
+  <br>
+  <br>
+
+  <p class="text" (click) = "getAppointments(l)">Appointments:</p>
+    <div *ngFor = "let l of appointments">           
+      <input class="lists" type="text" [(ngModel)] = "l.name">  
+      <span class="delete" (click) = "deleteAppointment(l)" > DELETE</span>
+    </div>
+    
+  <br>
+  <br>
+
+  <p class="text" (click) = "getTreatments(l)">Treatments:</p>
+    <div *ngFor = "let l of treatments">           
+      <input class="lists" type="text" [(ngModel)] = "l.name">  
+      <span class="delete" (click) = "deleteTreatment(l)" > DELETE</span>
+    </div>
+    
+  <br>
+  <br>
+  <div>
+    <button class="btn" (click)="logout()">Log out</button>
+  </div>
+
+</ng-container>

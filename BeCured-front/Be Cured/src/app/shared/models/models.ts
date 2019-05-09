@@ -1,55 +1,44 @@
+import { Time } from '@angular/common';
+
 export interface IDoctor{
     id: number;
     name: string;
     surname: string;
-    address: string;
-    mobile: string;
-    dob: Date;
     speciality: string;
+    patient_diagnosis: string;
     gender: string;
-    qualification: string;
+    email_address: string;
+    phone_number: string;
   }
-  
+
 export interface IPatient{
     id: number;
     name: string;
     surname: string;
-    diagnosis: string;
     age: number;
+    diagnosis: string;
     gender: string;
     mobile: string;
-    email_address: string;
     address: string;
     allergies: string;
-    doctor: IDoctor;
   }
 
-export interface IReceptionist{
+export interface IAppointment{
     id: number;
     name: string;
-    surname: string;
-    mobile: string;
-    dob: Date;
-    gender: string;
+    text: string;
+    created_at: Date;
+    time: Time;
   }
 
 export interface ITreatment{
-    patient: IPatient;
-    doctor: IDoctor;
-    title: string;
+    id: number;
+    name: string;
     description: string;
     created_at: Date;
     updated_at: Date;
-  }
-  export interface IAppointment{
-    patient: IPatient;
-    doctor: IDoctor;
-    time: Date;
-  }
-  export interface IBill{
-    date: Date;
-    patient: IPatient;
-    doctor: IDoctor;
-    treatment: ITreatment;
-    amount: number;
+}  
+ 
+export interface IAuthResponse{
+    token: string;
   }
