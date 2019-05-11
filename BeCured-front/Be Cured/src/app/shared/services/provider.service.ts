@@ -1,72 +1,81 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import {IAppointment, IBill, IDoctor, IPatient, IReceptionist, ITreatment} from '../models/models';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {MainService} from './main.service';
+import { Injectable } from '@angular/core';
+import { MainService } from './main.service';
+import { HttpClient } from '@angular/common/http';
+import { IDoctor, IPatient, IAppointment, ITreatment, IAuthResponse } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProviderService extends MainService {
+
+export class ProviderService extends MainService{
   constructor(http: HttpClient) {
     super(http);
+ }
+  getDoctors(): Promise<IDoctor[]>{
+    return this.get('http://127.0.0.1:8000/api/doctor_lists/', {});
   }
 
-  getDoctorLists(): Promise<IDoctor[]> {
-    return this.get('http://127.0.0.1:8000/doctor_lists/',  {});
+  getPatients(): Promise<IPatient[]>{
+    return this.get('http://127.0.0.1:8000/api/patient_lists/', {});
   }
 
-  getPatients(patient: IPatient) {
-    return this.get(`http://localhost:8000/patient_lists/`, {});
+  getAppointments(): Promise<IAppointment[]>{
+    return this.get('http://127.0.0.1:8000/api/appointment_lists/', {});
   }
-  addDoctor(name: any): Promise<IDoctor>{
-    return this.post('http://127.0.0.1:8000/doctor_lists/',{
+
+  getTreatments(): Promise<ITreatment[]>{
+    return this.get('http://127.0.0.1:8000/api/treatment_lists/', {});
+  }
+
+  deleteDoctor(id: number) : Promise<IDoctor[]>{
+    return this.delete(`http://localhost:8000/api/doctor_lists/${id}`,{});
+  }
+
+  deletePatient(id: number) : Promise<IPatient[]>{
+    return this.delete(`http://localhost:8000/api/patient_lists/${id}`,{});
+  }
+
+  deleteAppointment(id: number) : Promise<IAppointment[]>{
+    return this.delete(`http://localhost:8000/api/appointment_lists/${id}`,{});
+  }
+
+  deleteTreatment(id: number) : Promise<ITreatment[]>{
+    return this.delete(`http://localhost:8000/api/treatment_lists/${id}`,{});
+  }
+
+  updateDoctor(doctors: IDoctor): Promise<IDoctor>{
+    return this.put(`http://localhost:8000/api/doctor_lists/${doctors.id}/`,{
+      name: doctors.name,
+      surname: doctors.surname,
+      speciality: doctors.speciality,
+      patient_diagnosis: doctors.patient_diagnosis,
+      gender: doctors.gender,
+      phone_number: doctors.phone_number,
+      email_address: doctors.email_address
+    });
+  }
+
+
+  createDoctor(name: any, surname: any, speciality: any, patient_diagnosis: any, gender: any, phone_number: any, email_address: any) : Promise<IDoctor>{
+    return this.post(`http://localhost:8000/api/doctor_lists/`, {
       name: name,
+      surname: surname,
+      speciality: speciality,
+      patient_diagnosis: patient_diagnosis,
+      gender: gender,
+      phone_number: phone_number,
+      email_address: email_address,
     });
   }
-  createTaskListWithTasks(name: any, tasks: ITask[]): Promise<ITaskList>{
-    return this.post('http://127.0.0.1:8000/task_lists/',{
-      name: name,
-      tasks:tasks
-    });
-  }
-  updateTaskList(taskList: ITaskList): Promise<ITaskList>{
-    return this.put(`http://localhost:8000/task_lists/${taskList.id}/`, {
-      name: taskList.name
-    });
-  }
-
-  deleteTaskList(id: number): Promise<any>{
-    return this.delet(`http://localhost:8000/task_lists/${id}/`, {});
-  }
-
-  updateTask(tl_id: number, t_name: any, t_status: any, task: ITask): Promise<ITask>{
-    return this.put(`http://localhost:8000/task_lists/${task.task_list}/tasks/${task.id}/`, {
-      name: t_name,
-      status: t_status,
-      task_list: task.task_list, 
-    });
-  }
-  deleteTask(task: ITask): Promise<ITask>{
-    return this.delet(`http://localhost:8000/task_lists/${task.task_list}/tasks/${task.id}/`, {
-    });
-  }
-  createTask(name: any, status: any, id: number): Promise<ITask>{
-    return this.post(`http://localhost:8000/task_lists/${id}/tasks/`, {
-      name: name,
-      status: status,
-      task_list: id
-    });
-  }
-  logIn(login: any, password: any): Promise<IAuthResponse> {
-    return this.post('http://127.0.0.1:8000/login/', {
+  
+  auth(login: string, password: string): Promise<IAuthResponse> {
+    return this.post('http://localhost:8000/api/login/', {
       username: login,
       password: password
     });
   }
 
   logout(): Promise<any> {
-    return this.post('http://127.0.0.1:8000/logout/', {
-    });
+    return this.post('http://localhost:8000/api/logout/', {});
   }
-
 }

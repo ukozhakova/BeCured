@@ -1,0 +1,18 @@
+.page-footer{
+    background-color:  rgb(0, 153, 255);
+    color: white;
+}
+.one-two-three{
+    display: grid;
+    grid-template-columns: 35% 38% 32%;
+}
+
+.copyright {
+    text-align: center;
+}
+.one{
+  margin-left: 40px;
+}
+.two{
+  margin-left: 150px;
+}
