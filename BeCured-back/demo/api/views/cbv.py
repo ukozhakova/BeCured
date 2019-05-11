@@ -18,6 +18,7 @@ from rest_framework import status
 from ..models import Patient, Rrequest
 from ..serializers import PatientSerializer, RequestSerializer2
 
+
 #PATIENT
 class patientLists(APIView):
     def get(self, request):

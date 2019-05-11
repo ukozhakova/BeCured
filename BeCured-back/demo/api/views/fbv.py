@@ -19,6 +19,8 @@ def doctorLists(request):
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def doctorListDetail(request, pk):
     try:

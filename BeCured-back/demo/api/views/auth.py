@@ -15,6 +15,8 @@ class UserList(generics.ListAPIView):
     permission_classes = (IsAuthenticated, )
 
 
+
+
 @api_view(['POST'])
 def signin(request):
     serializer = AuthTokenSerializer(data=request.data)
@@ -22,6 +24,8 @@ def signin(request):
     user = serializer.validated_data.get('user')
     token, created = Token.objects.get_or_create(user=user)
     return Response({'token': token.key})
+
+
 
 
 @api_view(['POST'])
