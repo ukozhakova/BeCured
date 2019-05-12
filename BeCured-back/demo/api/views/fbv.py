@@ -18,12 +18,14 @@ def TreatmentLists(request):
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
+
 @api_view(['GET', 'PUT', 'DELETE'])
 def TreatmentListsDetail(request, pk):
     try:
         treatment_lists = Treatment.objects.get(id=pk)
     except Treatment.DoesNotExist as e:
-        return Response({'error': f'{e}'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': '{e}'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = TreatmentSerializer(treatment_lists)

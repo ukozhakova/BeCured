@@ -6,8 +6,8 @@ from ..serializers import DoctorSerializer, PatientSerializer, AppointmentSerial
 from django.http import Http404
 
 
-
 class AppointmentLists(APIView):
+
     def get(self, request):
         appointment_lists = Appointment.objects.all()
         serializer = AppointmentSerializer(appointment_lists, many=True)
