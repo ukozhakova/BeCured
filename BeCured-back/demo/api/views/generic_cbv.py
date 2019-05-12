@@ -14,14 +14,18 @@ class DoctorList(generics.ListCreateAPIView):
     serializer_class = DoctorSerializer
     permission_classes = (AllowAny, )
 
+
     def get_queryset(self):
         return Doctor.objects.for_user_order_by_name(self.request.user)
+
 
     def get_serializer_class(self):
         return DoctorSerializer
 
+
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
 
 
 class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -30,6 +34,11 @@ class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = DoctorSerializer
 
 
+
+class ReceptionistDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated, )
+    queryset = Receptionist.objects.all()
+    serializer_class = ReceptionistSerializer
 class PatientList(generics.ListCreateAPIView):
     serializer_class = PatientSerializer
     permission_classes = (AllowAny, )
