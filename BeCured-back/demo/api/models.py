@@ -38,7 +38,7 @@ class Doctor(models.Model):
 
     objects = DoctorManager()
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 
@@ -49,7 +49,7 @@ class Receptionist(models.Model):
     dob = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=10, choices=USER_GENDER, default='MALE')
 
-    def _str_(self):
+    def __str__(self):
         return self.name
 
 
@@ -86,7 +86,7 @@ class Appointment(models.Model):
 
 class Treatment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(Doctor, related_name='treat_doctor', on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
@@ -96,11 +96,3 @@ class Treatment(models.Model):
         return self.patient.name
 
 
-class Bill(models.Model):
-    date = models.DateTimeField(auto_now=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(User, related_name='bill_doctor', on_delete=models.CASCADE)
-    amount = models.IntegerField()
-
-    def __str__(self):
-        return str(self.patient)

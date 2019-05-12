@@ -23,7 +23,7 @@ def TreatmentListsDetail(request, pk):
     try:
         treatment_lists = Treatment.objects.get(id=pk)
     except Treatment.DoesNotExist as e:
-        return Response({'error': f'{e}'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': '{e}'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = TreatmentSerializer(treatment_lists)

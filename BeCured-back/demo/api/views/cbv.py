@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from ..models import Doctor, Patient, Appointment, Treatment, Bill
+from ..models import Doctor, Patient, Appointment, Treatment
 from ..serializers import DoctorSerializer, PatientSerializer, AppointmentSerializer, TreatmentSerializer
 from django.http import Http404
 
