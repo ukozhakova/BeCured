@@ -1,9 +1,6 @@
 from rest_framework import serializers
-<<<<<<< HEAD
 from .models import Doctor, Patient, Appointment, Treatment
-=======
 from .models import Doctor, Patient, Appointment, Treatment, Receptionist
->>>>>>> ae0f0d5ebaa2f1fe6ed01ae85ded0813d99754bc
 from django.contrib.auth.models import User
 
 

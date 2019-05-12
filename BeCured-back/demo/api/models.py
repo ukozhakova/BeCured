@@ -94,10 +94,7 @@ class Treatment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
-<<<<<<< HEAD
-        return self.patient.name
-=======
+
         return self.patient.name
 
 
->>>>>>> ae0f0d5ebaa2f1fe6ed01ae85ded0813d99754bc

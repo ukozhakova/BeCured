@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MainService } from './main.service';
 import { HttpClient } from '@angular/common/http';
 import { IDoctor, IPatient, IAppointment, ITreatment, IAuthResponse } from '../models/models';
+import { Time } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,17 @@ export class ProviderService extends MainService{
       description: description,
       patient: patient,
       doctor: doctor,
+    });
+  }
+
+  createAppointment(name: any, text: any, patient: IPatient, doctor: IDoctor, date: Date, time: Time) : Promise<IAppointment>{
+    return this.post(`http://localhost:8000/api/appointment_lists/`,{
+      name: name,
+      text: text,
+      patient: patient,
+      doctor: doctor,
+      date: date,
+      time: time
     });
   }
   

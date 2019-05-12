@@ -1,0 +1,15 @@
+<p class="text">To create new appointment fill the gaps below:</p>
+  <div>
+    <input class="lists" placeholder="name" type="text" [(ngModel)]="name" />
+    <input class="lists" placeholder="text" type="text" [(ngModel)]="text" />
+    <input class="lists" placeholder="patient id" type="text" [(ngModel)]="patient" />
+    <input class="lists" placeholder="doctor id" type="text" [(ngModel)]="doctor" />
+    <input class="lists" placeholder="YYYY-MM-DD" type="text" [(ngModel)]="date" />
+    <input class="lists" placeholder="hh:mm" type="text" [(ngModel)]="time" />
+
+
+    <button class="btn" (click) = "createAppointment()" >Create Appointment</button>
+    <br>
+    <p>Press <button class="btn" routerLink="/patient">Back</button> to go to the patient's page</p>
+    
+  </div>

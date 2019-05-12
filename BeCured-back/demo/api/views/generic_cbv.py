@@ -1,10 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-<<<<<<< HEAD
 from ..models import User, Doctor, Patient, Receptionist, Treatment, Appointment
-=======
 from ..models import User, Doctor, Patient, Receptionist,  Treatment, Appointment
->>>>>>> ae0f0d5ebaa2f1fe6ed01ae85ded0813d99754bc
 from ..serializers import UserSerializer, DoctorSerializer, PatientSerializer,\
     TreatmentSerializer, AppointmentSerializer, ReceptionistSerializer
 from rest_framework import generics
@@ -31,13 +28,10 @@ class DoctorList(generics.ListCreateAPIView):
         serializer.save(created_by=self.request.user)
 
 
-
 class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
-
-
 
 class ReceptionistDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
@@ -55,7 +49,6 @@ class PatientList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-
 
 class PatientDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )

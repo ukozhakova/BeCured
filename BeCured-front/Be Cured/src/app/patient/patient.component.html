@@ -1,0 +1,50 @@
+<ng-container *ngIf="!isLogged">
+  <div class="login">
+    <h1>Wrong username or password, please try again!</h1>
+    <div>
+      <input class="lists" type="text" placeholder="Login" [(ngModel)]="login"/>
+    </div>
+    <div>
+      <input class="lists" type="password" placeholder="Password" [(ngModel)]="password"/>
+    </div>
+    <div>
+      <button class="btn" (click)="auth()">Log in</button>
+    </div>
+  </div>
+</ng-container>
+
+
+
+<p class="text">Patients:</p>
+
+<ng-container *ngIf="!loading">
+  <p class="text">Loading...</p>
+</ng-container>
+
+<table class="table my-pagination">
+  <thead> 
+    <tr class="tr-head">
+	  <th>Sl.No</th>
+	  <th>Name</th>
+	  <th>Speciality</th>
+	  <th>Email</th>
+	 </tr>
+	</thead>
+
+	<tbody>
+    <ng-container *ngIf ="loading">
+        <div *ngFor = "let p of doctors">           
+          <tr class="tr-body">
+            <td>{{p.id}}</td>
+            <td>{{p.name}} {{p.surname}}</td>
+            <td>{{p.speciality}}</td>
+            <td>{{p.email_address}}</td>
+            <td><button routerLink="/appointment">Add Appointment</button></td>
+	        </tr>
+        </div>
+    </ng-container>
+	
+	</tbody>
+
+  
+</table>
