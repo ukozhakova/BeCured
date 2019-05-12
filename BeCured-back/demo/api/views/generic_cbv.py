@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from ..models import User, Doctor, Patient, Receptionist, Bill, Treatment, Appointment
-from ..serializers import UserSerializer, DoctorSerializer, PatientSerializer, BillSerializer,\
+from ..models import User, Doctor, Patient, Receptionist, Treatment, Appointment
+from ..serializers import UserSerializer, DoctorSerializer, PatientSerializer,\
     TreatmentSerializer, AppointmentSerializer, ReceptionistSerializer
 from rest_framework import generics
 from rest_framework.response import Response

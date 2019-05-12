@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Doctor, Patient, Appointment, Treatment, Bill
+from .models import Doctor, Patient, Appointment, Treatment
 from django.contrib.auth.models import User
 
 
@@ -85,10 +85,3 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = '__all__'
-
-class BillSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
-
-    class Meta:
-        model = Bill
-        fields = '_all_'

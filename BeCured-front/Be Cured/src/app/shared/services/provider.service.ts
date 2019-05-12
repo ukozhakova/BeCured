@@ -67,6 +67,15 @@ export class ProviderService extends MainService{
       email_address: email_address,
     });
   }
+
+  createTreatment(name: any, description: any, patient: IPatient, doctor: IDoctor) : Promise<ITreatment>{
+    return this.post(`http://localhost:8000/api/treatment_lists/`, {
+      name: name,
+      description: description,
+      patient: patient,
+      doctor: doctor,
+    });
+  }
   
   auth(login: string, password: string): Promise<IAuthResponse> {
     return this.post('http://localhost:8000/api/login/', {

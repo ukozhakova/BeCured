@@ -27,14 +27,18 @@ export interface IAppointment{
     id: number;
     name: string;
     text: string;
+    patient: IPatient;
+    doctor: IDoctor;
     created_at: Date;
     time: Time;
+    date: Date;
   }
 
 export interface ITreatment{
     id: number;
     name: string;
     description: string;
+    patient: IPatient;
     created_at: Date;
     updated_at: Date;
 }  

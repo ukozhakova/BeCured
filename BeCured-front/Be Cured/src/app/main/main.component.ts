@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IDoctor, IPatient, IAppointment, ITreatment, IAuthResponse } from '../shared/models/models';
 import { ProviderService } from '../shared/services/provider.service';
 
-
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -57,7 +56,7 @@ export class MainComponent implements OnInit {
       this.doctors = res;
       setTimeout( () => {
         this.loading=true;
-      }, 1000);
+      }, 200);
     }); 
   }
 

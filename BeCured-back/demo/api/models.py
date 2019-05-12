@@ -79,6 +79,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     time = models.TimeField(blank=True, null=True)
+    date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.patient.name
@@ -94,13 +95,3 @@ class Treatment(models.Model):
 
     def __str__(self):
         return self.patient.name
-
-
-class Bill(models.Model):
-    date = models.DateTimeField(auto_now=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    doctor = models.ForeignKey(User, related_name='bill_doctor', on_delete=models.CASCADE)
-    amount = models.IntegerField()
-
-    def __str__(self):
-        return str(self.patient)

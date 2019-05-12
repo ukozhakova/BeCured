@@ -3,18 +3,18 @@ from .models import Doctor, Patient, Appointment, Treatment
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'created_by', )
+    list_display = ('id', 'name', 'surname', 'created_by', )
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'created_by',)
+    list_display = ('id', 'name', 'surname', 'created_by',)
 
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'created_at', )
+    list_display = ('id', 'name', 'date', 'time')
 
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'created_at', )
+    list_display = ('id', 'name', 'created_at',)
