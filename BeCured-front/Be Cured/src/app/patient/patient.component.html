@@ -13,38 +13,30 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="isLogged">
+  <p class="text">Doctors:</p>
 
+  <ng-container *ngIf="!loading">
+    <p class="text">Loading...</p>
+  </ng-container>
 
-<p class="text">Patients:</p>
-
-<ng-container *ngIf="!loading">
-  <p class="text">Loading...</p>
-</ng-container>
-
-<table class="table my-pagination">
-  <thead> 
-    <tr class="tr-head">
-	  <th>Sl.No</th>
-	  <th>Name</th>
-	  <th>Speciality</th>
-	  <th>Email</th>
-	 </tr>
-	</thead>
-
-	<tbody>
+  <table class="table">
     <ng-container *ngIf ="loading">
-        <div *ngFor = "let p of doctors">           
-          <tr class="tr-body">
-            <td>{{p.id}}</td>
-            <td>{{p.name}} {{p.surname}}</td>
-            <td>{{p.speciality}}</td>
-            <td>{{p.email_address}}</td>
-            <td><button routerLink="/appointment">Add Appointment</button></td>
-	        </tr>
-        </div>
-    </ng-container>
-	
-	</tbody>
+      <tr class="tr-head" >
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Speciality</th>
+        <th>Email</th>
+        <th>Add appointment</th>
+      </tr>
 
-  
-</table>
+      <tr class="tr-body" *ngFor = "let p of doctors">
+          <td>{{p.id}}</td>
+          <td>{{p.name}} {{p.surname}}</td>
+          <td>{{p.speciality}}</td>
+          <td>{{p.email_address}}</td>
+          <td><button class="addBtn" routerLink="/appointment">Add Appointment</button></td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>
