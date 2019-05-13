@@ -27,6 +27,13 @@ class DoctorSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.surname = validated_data.get('surname', instance.surname)
+        instance.speciality = validated_data.get('speciality', instance.speciality)
+        instance.patient_diagnosis = validated_data.get('patient_diagnosis', instance.patient_diagnosis)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.email_address = validated_data.get('email_address', instance.email_address)
+
         instance.save()
         return instance
 
@@ -70,6 +77,14 @@ class PatientSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.surname = validated_data.get('surname', instance.surname)
+        instance.diagnosis = validated_data.get('diagnosis', instance.diagnosis)
+        instance.age = validated_data.get('age', instance.age)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.mobile = validated_data.get('mobile', instance.mobile)
+        instance.email_address = validated_data.get('email_address', instance.email_address)
+        instance.address = validated_data.get('address', instance.address)
+        instance.allergies = validated_data.get('allergies', instance.allergies)
         instance.save()
         return instance
 
@@ -77,7 +92,7 @@ class PatientSerializer(serializers.Serializer):
         model = Patient
         fields = ('id', 'name', 'surname',)
 
-#2
+#Serializer2
 class DoctorSerializer2(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=True)

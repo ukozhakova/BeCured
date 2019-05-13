@@ -33,10 +33,12 @@ class DoctorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Doctor.objects.all()
     serializer_class = DoctorSerializer
 
+
 class ReceptionistDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
     queryset = Receptionist.objects.all()
     serializer_class = ReceptionistSerializer
+
 
 class PatientList(generics.ListCreateAPIView):
     serializer_class = PatientSerializer

@@ -12,9 +12,9 @@ class PatientAdmin(admin.ModelAdmin):
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'date', 'time')
+    list_display = ('id', 'name', 'doctor', 'date', 'time')
 
 
 @admin.register(Treatment)
 class TreatmentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'created_at',)
+    list_display = ('id', 'name', 'created_at', 'patient')
