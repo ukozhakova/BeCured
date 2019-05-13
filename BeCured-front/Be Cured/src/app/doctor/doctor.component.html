@@ -13,39 +13,34 @@
   </div>
 </ng-container>
 
+<ng-container *ngIf="isLogged">
+  <p class="text">Your appointments:</p>
 
+  <ng-container *ngIf="!loading">
+    <p class="text">Loading...</p>
+  </ng-container>
 
-<p class="text">Today's appointments:</p>
-
-<ng-container *ngIf="!loading">
-  <p class="text">Loading...</p>
-</ng-container>
-
-<table class="table my-pagination">
-  <thead>
-    <tr class="tr-head">
-	  <th>Sl.No</th>
-	  <th>Date and Time</th>
-	  <th>Title</th>
-	  <th>Patient</th>
-	 </tr>
-	</thead>
-
-	<tbody>
+  <table class="table">
     <ng-container *ngIf ="loading">
-        <div *ngFor = "let l of appointments">           
-          <tr class="tr-body">
-            <td>{{l.id}}</td>
-            <td>{{l.date}} {{l.time}}</td>
-            <td>{{l.name}}</td>
-            <td><a class="a-link" href="/patient/">{{l.patient}}</a></td>
-            <td><button routerLink="/treatment">Add Treatment</button></td>
-	        </tr>
-        </div>
-    </ng-container>
-	
-	</tbody>
+      <tr class="tr-head" >
+        <th>Sl.No</th>
+        <th>Date and Time</th>
+        <th>Title</th>
+        <th>Patient's name</th>
+        <th>Patient's diagnosis</th>
+        <th>Patient's mobile</th>
+        <th>Add treatment</th>
+      </tr>
 
-  
-</table>
-   
+      <tr class="tr-body" *ngFor = "let l of appointments">
+        <td>{{l.id}}</td>
+        <td>{{l.date}} {{l.time}}</td>
+        <td>{{l.name}}</td>
+        <td>{{l.patient.name}} {{l.patient.surname}}</td>
+        <td>{{l.patient.diagnosis}}</td>
+        <td>{{l.patient.mobile}}</td>
+        <td><button routerLink="/treatment" class="addBtn">Add Treatment</button></td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>

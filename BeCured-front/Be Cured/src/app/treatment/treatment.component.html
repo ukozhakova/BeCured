@@ -1,13 +1,14 @@
 <p class="text">To create new treatment fill the gaps below:</p>
-  <div>
+  <div class="input">
     <input class="lists" placeholder="title" type="text" [(ngModel)]="name" />
     <input class="lists" placeholder="description" type="text" [(ngModel)]="description" />
     <input class="lists" placeholder="patient id" type="text" [(ngModel)]="patient" />
     <input class="lists" placeholder="doctor id" type="text" [(ngModel)]="doctor" />
-
-
-    <button class="btn" (click) = "createTreatment()" >Create Treatment</button>
     <br>
-    <p>Press <button class="btn" routerLink="/doctor">Back</button> to go to the daoctor's page</p>
-    
+    <br>
+    <button class="createBtn" (click) = "createTreatment()" >Create Treatment</button>
   </div>
+  <br>
+<p class="text">Press <button class="btn" routerLink="/doctor">Back</button> to go to the daoctor's page</p>
+    
+  

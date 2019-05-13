@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IAppointment } from '../shared/models/models';
+import { IAppointment, IPatient } from '../shared/models/models';
 import { ProviderService } from '../shared/services/provider.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { ProviderService } from '../shared/services/provider.service';
 })
 export class DoctorComponent implements OnInit {
   public appointments: IAppointment[] = [];
+  public targetPatient: IPatient;
 
   public loading = false;
   public isLogged = false;
@@ -40,8 +41,7 @@ export class DoctorComponent implements OnInit {
       }, 100);
     }); 
   }
-
-
+  
   auth(){
     if (this.login !== '' && this.password !== '') {
       this.provider.auth(this.login, this.password).then(res => {

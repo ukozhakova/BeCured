@@ -30,6 +30,10 @@ class DoctorSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+    class Meta:
+        model = Doctor
+        fields = ('id', 'name', 'surname',)
+
 
 class ReceptionistSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
@@ -43,7 +47,7 @@ class ReceptionistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Receptionist
-        fields = '__all__'
+        fields = ('id', 'name', 'surname',)
 
 
 class PatientSerializer(serializers.Serializer):
@@ -69,9 +73,33 @@ class PatientSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+    class Meta:
+        model = Patient
+        fields = ('id', 'name', 'surname',)
+
+#2
+class DoctorSerializer2(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=True)
+
+    class Meta:
+        model = Doctor
+        fields = ('id', 'name', 'surname')
+
+
+class PatientSerializer2(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+
+    class Meta:
+        model = Patient
+        fields = ('id', 'name', 'surname', 'diagnosis', 'mobile')
+
 
 class TreatmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    doctor = DoctorSerializer2()
+    patient = PatientSerializer2()
 
     class Meta:
         model = Treatment
@@ -80,6 +108,9 @@ class TreatmentSerializer(serializers.ModelSerializer):
 
 class AppointmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    doctor = DoctorSerializer2()
+    patient = PatientSerializer2()
+
 
     class Meta:
         model = Appointment

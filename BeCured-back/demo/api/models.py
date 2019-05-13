@@ -63,7 +63,6 @@ class Patient(models.Model):
     email_address = models.EmailField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=100)
     allergies = models.CharField(max_length=100)
-    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     created_by = models.ForeignKey(User, related_name='patient_createdby', default='1', on_delete=models.CASCADE)
 
     objects = PatientManager()

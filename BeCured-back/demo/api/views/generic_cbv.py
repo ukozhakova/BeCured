@@ -37,6 +37,7 @@ class ReceptionistDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated, )
     queryset = Receptionist.objects.all()
     serializer_class = ReceptionistSerializer
+
 class PatientList(generics.ListCreateAPIView):
     serializer_class = PatientSerializer
     permission_classes = (AllowAny, )
