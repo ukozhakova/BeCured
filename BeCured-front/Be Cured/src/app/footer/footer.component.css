@@ -1,5 +1,9 @@
+
 .page-footer{
     background-color:  rgb(0, 153, 255);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
     color: white;
 }
 .one-two-three{
