@@ -1,5 +1,4 @@
 import { Time } from '@angular/common';
-
 export interface IDoctor{
     id: number;
     name: string;

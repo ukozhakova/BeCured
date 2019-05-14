@@ -54,7 +54,7 @@ export class PatientComponent implements OnInit {
 
 
   auth(){
-    if (this.login !== '' && this.login[0] == 'p' && this.password !== '') {
+    if (this.login !== '' && this.password !== '') {
       this.provider.auth(this.login, this.password).then(res => {
         localStorage.setItem('token', res.token);
         this.isLogged = true;

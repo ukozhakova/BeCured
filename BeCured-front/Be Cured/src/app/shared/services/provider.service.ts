@@ -3,6 +3,7 @@ import { MainService } from './main.service';
 import { HttpClient } from '@angular/common/http';
 import { IDoctor, IPatient, IAppointment, ITreatment, IAuthResponse } from '../models/models';
 import { Time } from '@angular/common';
+import { all } from 'q';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,19 @@ export class ProviderService extends MainService{
     });
   }
 
+  updatePatient(patient: IPatient) : Promise<IPatient>{
+    return this.put(`http://localhost:8000/api/patient_lists/${patient.id}/`,{
+      name: patient.name,
+      surname: patient.surname,
+      age: patient.age,
+      diagnosis: patient.diagnosis,
+      gender: patient.gender,
+      mobile: patient.mobile,
+      address: patient.address,
+      allergies: patient.allergies,
+    });
+  }
+
 
   createDoctor(name: any, surname: any, speciality: any, patient_diagnosis: any, gender: any, phone_number: any, email_address: any) : Promise<IDoctor>{
     return this.post(`http://localhost:8000/api/doctor_lists/`, {
@@ -66,6 +80,19 @@ export class ProviderService extends MainService{
       gender: gender,
       phone_number: phone_number,
       email_address: email_address,
+    });
+  }
+
+  createPatient(name: any, surname: any, age: any, diagnosis: any, gender: any, mobile: any, address: any, allergies: any) : Promise<IPatient>{
+    return this.post(`http://localhost:8000/api/patient_lists/`, {
+      name: name,
+      surname: surname,
+      age: age,
+      diagnosis: diagnosis,
+      gender: gender,
+      mobile: mobile,
+      address: address,
+      allergies: allergies,
     });
   }
 

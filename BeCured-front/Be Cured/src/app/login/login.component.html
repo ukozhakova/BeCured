@@ -5,8 +5,11 @@
     <div>
       <input class="lists" type="password" placeholder="Password" [(ngModel)]="password"/>
     </div>
-    <div>
-      <button class="btn" (click)="auth()"><a href="/main">Log in</a></button>
+    <div class="btns">
+      <span  (click)="auth()" routerLink="/main/">Log in as receptionist</span>
+      <span  (click)="auth()" routerLink="/doctor/">Log in as doctor</span>
+      <span  (click)="auth()" routerLink="/patient/">Log in as patient</span>
+
     </div>
   
 </div>

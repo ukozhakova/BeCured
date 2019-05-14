@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IDoctor, IPatient, IAppointment, ITreatment, IAuthResponse } from '../shared/models/models';
 import { ProviderService } from '../shared/services/provider.service';
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-main',
@@ -33,6 +34,12 @@ export class MainComponent implements OnInit {
   public address: any = '';
   public allergies: any='';
 
+  public text: any='';
+  public patient: IPatient;
+  public doctor: IDoctor;
+  public date: Date;
+  public time: Time;
+
   public login: any='';
   public password: any='';
 
@@ -47,6 +54,9 @@ export class MainComponent implements OnInit {
 
     if(this.isLogged){
       this.getDoctors();
+      this.getPatients();
+      this.getAppointments();
+      this.getTreatments();
     }
 
   }
@@ -84,6 +94,12 @@ export class MainComponent implements OnInit {
     });
   }
 
+  updatePatient(c: IPatient){
+    this.provider.updatePatient(c).then(res =>{
+      console.log(c.name+' updated');
+    });
+  }
+
   createDoctor(){
     if(this.name !== '' &&  this.surname !== '' &&
     this.speciality !== '' &&  this.patient_diagnosis !== ''&& 
@@ -102,6 +118,25 @@ export class MainComponent implements OnInit {
     }
   }
 
+  createPatient(){
+    if(this.pname !== '' &&  this.psurname !== '' &&
+    this.age !== '' &&  this.diagnosis !== '' && 
+    this.pgender !== '' &&  this.mobile !== '' && this.address !== '' && this.allergies !== '') {
+      console.log(' iffffffffff');
+    this.provider.createPatient(this.pname, this.psurname, this.age, this.diagnosis, this.pgender, this.mobile, this.address, this.allergies).then( res => {
+      console.log(' created');
+      this.pname = '';
+      this.psurname = '';
+      this.age = 0;
+      this.diagnosis = '';
+      this.pgender = '';
+      this.mobile = '';
+      this.address = '';
+      this.allergies = '';
+      this.patients.push(res);
+      })
+    }
+  }
 
   deleteDoctor(c: IDoctor){
     this.provider.deleteDoctor(c.id).then(res => {

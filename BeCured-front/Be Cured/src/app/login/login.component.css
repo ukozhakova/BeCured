@@ -11,13 +11,13 @@
     font-size: 18px;
     border: 2px solid rgb(5, 6, 10);
 }
-.btn{
-    height: 33px;
-    width: 100px;
-    background: rgb(15, 116, 223);
-    margin: 5px 0px 0px 2px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
+span{
+    margin: 25px 0px 0px 5px;
+    padding: 5px 5px 5px 5px; 
+    border: 2px solid black;
+    border-radius: 2px;
+    font-size: 20px;
+}
+.btns{
+    margin: 25px 0px 0px 5px;
 }
