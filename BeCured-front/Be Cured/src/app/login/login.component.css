@@ -1,23 +1,28 @@
 .login{
-    text-align: center;
+    text-align: right;
     padding-top: 180px;
+    padding-right: 40px;
     padding-bottom: 50px;
     background-image: url(home.png);
+    background-repeat: no-repeat;
+    background-size: 70%;
     height: 170px;
 }
 .lists{
     margin-top: 10px;
+    padding-left: 5px;
     margin-left: 10px;
-    font-size: 18px;
-    border: 2px solid rgb(5, 6, 10);
+    font-size: 14px;
+    border: gray;
+    color: white;
 }
 .btn{
     height: 33px;
     width: 100px;
-    background: rgb(15, 116, 223);
+    background: rgb(180, 186, 192);
     margin: 5px 0px 0px 2px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgb(216, 204, 204);
 }

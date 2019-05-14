@@ -1,5 +1,5 @@
 .page-footer{
-    background-color:  rgb(0, 153, 255);
+  background-color: rgb(34, 66, 148);
     color: white;
 }
 .one-two-three{
@@ -15,4 +15,8 @@
 }
 .two{
   margin-left: 150px;
+}
+.links{
+  color: white;
+  text-decoration: none;
 }
