@@ -1,0 +1,42 @@
+<ng-container *ngIf="!isLogged">
+  <div class="login">
+    <h1>Wrong username or password, please try again!</h1>
+    <div>
+      <input class="lists" type="text" placeholder="Login" [(ngModel)]="login"/>
+    </div>
+    <div>
+      <input class="lists" type="password" placeholder="Password" [(ngModel)]="password"/>
+    </div>
+    <div>
+      <button class="btn" (click)="auth()">Log in</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLogged">
+  <p class="text">Doctors:</p>
+
+  <ng-container *ngIf="!loading">
+    <p class="text">Loading...</p>
+  </ng-container>
+
+  <table class="table">
+    <ng-container *ngIf ="loading">
+      <tr class="tr-head" >
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Speciality</th>
+        <th>Email</th>
+        <th>Add appointment</th>
+      </tr>
+
+      <tr class="tr-body" *ngFor = "let p of doctors">
+          <td>{{p.id}}</td>
+          <td>{{p.name}} {{p.surname}}</td>
+          <td>{{p.speciality}}</td>
+          <td>{{p.email_address}}</td>
+          <td><button class="addBtn" routerLink="/appointment">Add Appointment</button></td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>

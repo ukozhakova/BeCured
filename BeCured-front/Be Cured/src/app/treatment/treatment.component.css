@@ -1,0 +1,35 @@
+.lists{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    border: 2px solid rgb(5, 6, 10);
+}
+
+.text{
+    font-size: 30px;
+    text-align: center;
+}
+
+.btn{
+    height: 33px;
+    width: 100px;
+    background: rgb(15, 116, 223);
+    margin: 0px 0px 0px 2px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+
+.createBtn{
+    height: 40px;
+    width: 110px;
+    background: rgb(15, 116, 223);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+.input{
+    text-align: center;
+}

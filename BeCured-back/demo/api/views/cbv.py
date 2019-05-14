@@ -20,7 +20,6 @@ class AppointmentLists(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
 class AppointmentListDetail(APIView):
 
     def get_object(self, pk):

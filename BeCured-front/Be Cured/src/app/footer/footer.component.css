@@ -1,5 +1,13 @@
+
 .page-footer{
+<<<<<<< HEAD
   background-color: rgb(34, 66, 148);
+=======
+    background-color:  rgb(0, 153, 255);
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+>>>>>>> 6a99e93646f90f48f729fd54014df683072612ad
     color: white;
 }
 .one-two-three{

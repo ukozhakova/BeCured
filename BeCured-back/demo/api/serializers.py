@@ -1,5 +1,10 @@
 from rest_framework import serializers
+<<<<<<< HEAD
 from .models import Doctor, Patient, Appointment, Treatment, Receptionist, Profile
+=======
+from .models import Doctor, Patient, Appointment, Treatment
+from .models import Doctor, Patient, Appointment, Treatment, Receptionist
+>>>>>>> 6a99e93646f90f48f729fd54014df683072612ad
 from django.contrib.auth.models import User
 
 
@@ -38,8 +43,19 @@ class DoctorSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.surname = validated_data.get('surname', instance.surname)
+        instance.speciality = validated_data.get('speciality', instance.speciality)
+        instance.patient_diagnosis = validated_data.get('patient_diagnosis', instance.patient_diagnosis)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.phone_number = validated_data.get('phone_number', instance.phone_number)
+        instance.email_address = validated_data.get('email_address', instance.email_address)
+
         instance.save()
         return instance
+
+    class Meta:
+        model = Doctor
+        fields = ('id', 'name', 'surname',)
 
 
 class ReceptionistSerializer(serializers.ModelSerializer):
@@ -47,7 +63,7 @@ class ReceptionistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Receptionist
-        fields = '__all__'
+        fields = ('id', 'name', 'surname',)
 
 
 class PatientSerializer(serializers.Serializer):
@@ -64,12 +80,44 @@ class PatientSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
+        instance.surname = validated_data.get('surname', instance.surname)
+        instance.diagnosis = validated_data.get('diagnosis', instance.diagnosis)
+        instance.age = validated_data.get('age', instance.age)
+        instance.gender = validated_data.get('gender', instance.gender)
+        instance.mobile = validated_data.get('mobile', instance.mobile)
+        instance.email_address = validated_data.get('email_address', instance.email_address)
+        instance.address = validated_data.get('address', instance.address)
+        instance.allergies = validated_data.get('allergies', instance.allergies)
         instance.save()
         return instance
+
+    class Meta:
+        model = Patient
+        fields = ('id', 'name', 'surname',)
+
+#Serializer2
+class DoctorSerializer2(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=True)
+
+    class Meta:
+        model = Doctor
+        fields = ('id', 'name', 'surname')
+
+
+class PatientSerializer2(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+
+    class Meta:
+        model = Patient
+        fields = ('id', 'name', 'surname', 'diagnosis', 'mobile')
 
 
 class TreatmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    doctor = DoctorSerializer2()
+    patient = PatientSerializer2()
 
     class Meta:
         model = Treatment
@@ -78,6 +126,9 @@ class TreatmentSerializer(serializers.ModelSerializer):
 
 class AppointmentSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    doctor = DoctorSerializer2()
+    patient = PatientSerializer2()
+
 
     class Meta:
         model = Appointment

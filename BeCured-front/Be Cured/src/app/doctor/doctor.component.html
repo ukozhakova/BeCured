@@ -1,0 +1,46 @@
+<ng-container *ngIf="!isLogged">
+  <div class="login">
+    <h1>Wrong username or password, please try again!</h1>
+    <div>
+      <input class="lists" type="text" placeholder="Login" [(ngModel)]="login"/>
+    </div>
+    <div>
+      <input class="lists" type="password" placeholder="Password" [(ngModel)]="password"/>
+    </div>
+    <div>
+      <button class="btn" (click)="auth()">Log in</button>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="isLogged">
+  <p class="text">Your appointments:</p>
+
+  <ng-container *ngIf="!loading">
+    <p class="text">Loading...</p>
+  </ng-container>
+
+  <table class="table">
+    <ng-container *ngIf ="loading">
+      <tr class="tr-head" >
+        <th>Sl.No</th>
+        <th>Date and Time</th>
+        <th>Title</th>
+        <th>Patient's name</th>
+        <th>Patient's diagnosis</th>
+        <th>Patient's mobile</th>
+        <th>Add treatment</th>
+      </tr>
+
+      <tr class="tr-body" *ngFor = "let l of appointments">
+        <td>{{l.id}}</td>
+        <td>{{l.date}} {{l.time}}</td>
+        <td>{{l.name}}</td>
+        <td>{{l.patient.name}} {{l.patient.surname}}</td>
+        <td>{{l.patient.diagnosis}}</td>
+        <td>{{l.patient.mobile}}</td>
+        <td><button routerLink="/treatment" class="addBtn">Add Treatment</button></td>
+      </tr>
+    </ng-container>
+  </table>
+</ng-container>

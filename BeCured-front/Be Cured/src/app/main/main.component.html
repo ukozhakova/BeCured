@@ -26,6 +26,7 @@
     <button class="btn1" (click) = "createDoctor()" >Create Doctor</button>
   </div>
 
+
   <p class="text">Doctors:</p>
 
 
@@ -39,6 +40,9 @@
         <div *ngFor = "let l of doctors">           
             <input class="lists" type="text" [(ngModel)] = "l.name">  
             <input class="lists" type="text" [(ngModel)] = "l.surname">  
+            <input class="lists" type="text" [(ngModel)] = "l.speciality">  
+            <input class="lists" type="text" [(ngModel)] = "l.email_address">  
+
             <span class="edit" (click) = "updateDoctor(l)" > UPDATE</span>
             <span class="delete" (click) = "deleteDoctor(l)" > DELETE</span>
           </div>
@@ -48,28 +52,49 @@
   <br>
   <br>
 
-  <p class="text" (click) = "getPatients(l)">Patient:</p>
+  <p class="text">Patient:</p>
+  
+  <p class="text">To create new patient write data below:</p>
+  <div>
+    <input class="lists" placeholder="name" type="text" [(ngModel)]="pname" />
+    <input class="lists" placeholder="surname" type="text" [(ngModel)]="psurname" />
+    <input class="lists" placeholder="age" type="text" [(ngModel)]="age" />
+    <input class="lists" placeholder="diagnosis" type="text" [(ngModel)]="diagnosis" />
+    <input class="lists" placeholder="gender" type="text" [(ngModel)]="pgender" />
+    <input class="lists" placeholder="mobile" type="text" [(ngModel)]="mobile" />
+    <input class="lists" placeholder="address" type="text" [(ngModel)]="address" />
+    <input class="lists" placeholder="allergies" type="text" [(ngModel)]="allergies" />
+    <button class="btn1" (click) = "createPatient()" >Create Patient</button>
+  </div>
     <div *ngFor = "let l of patients">           
       <input class="lists" type="text" [(ngModel)] = "l.name">  
       <input class="lists" type="text" [(ngModel)] = "l.surname">  
+      <input class="lists" type="text" [(ngModel)] = "l.diagnosis">  
+      <input class="lists" type="text" [(ngModel)] = "l.mobile">  
+
+      <span class="edit" (click) = "updatePatient(l)" > UPDATE</span>
       <span class="delete" (click) = "deletePatient(l)" > DELETE</span>
     </div>
 
   <br>
   <br>
 
-  <p class="text" (click) = "getAppointments(l)">Appointments:</p>
+  <p class="text">Appointments:</p>
     <div *ngFor = "let l of appointments">           
       <input class="lists" type="text" [(ngModel)] = "l.name">  
+      <input class="lists" type="text" [(ngModel)] = "l.text">  
+
       <span class="delete" (click) = "deleteAppointment(l)" > DELETE</span>
     </div>
     
   <br>
   <br>
 
-  <p class="text" (click) = "getTreatments(l)">Treatments:</p>
+  <p class="text" >Treatments:</p>
     <div *ngFor = "let l of treatments">           
       <input class="lists" type="text" [(ngModel)] = "l.name">  
+      <input class="lists" type="text" [(ngModel)] = "l.description">  
+
       <span class="delete" (click) = "deleteTreatment(l)" > DELETE</span>
     </div>
     

@@ -86,9 +86,20 @@ class Receptionist(models.Model):
 class Patient(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE, null=True)
     diagnosis = models.CharField(max_length=100, choices=DIAGNOSIS, default='Z04.8-others')
+<<<<<<< HEAD
     address = models.CharField(max_length=100, default='')
     allergies = models.CharField(max_length=100, default='')
     homedoctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, default=1)
+=======
+    age = models.IntegerField(blank=True, null=True)
+    gender = models.CharField(max_length=10, choices=USER_GENDER, default='MALE')
+    mobile = models.CharField(max_length=20, blank=True, null=True)
+    email_address = models.EmailField(max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=100)
+    allergies = models.CharField(max_length=100)
+    created_by = models.ForeignKey(User, related_name='patient_createdby', default='1', on_delete=models.CASCADE)
+
+>>>>>>> 6a99e93646f90f48f729fd54014df683072612ad
     objects = PatientManager()
 
     def __str__(self):
@@ -101,7 +112,11 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     time = models.TimeField(blank=True, null=True)
+<<<<<<< HEAD
     date = models.DateField(blank=True, auto_now=True)
+=======
+    date = models.DateField(blank=True, null=True)
+>>>>>>> 6a99e93646f90f48f729fd54014df683072612ad
 
     def __str__(self):
         return self.patient.name
@@ -116,6 +131,7 @@ class Treatment(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str__(self):
+
         return self.patient.name
 
 

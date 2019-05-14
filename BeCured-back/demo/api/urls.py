@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 from django.urls import path, re_path
 from django.conf.urls import url
 from .auth import logout, login
+=======
+from django.urls import path
+>>>>>>> 6a99e93646f90f48f729fd54014df683072612ad
 from . import views
 
 urlpatterns = [

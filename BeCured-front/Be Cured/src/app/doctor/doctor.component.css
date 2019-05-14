@@ -1,0 +1,61 @@
+.login{
+    text-align: center;
+    padding-top: 150px;
+    padding-bottom: 50px;
+    background-image: url(home.png);
+    height: 230px;
+}
+
+.btn{
+    height: 33px;
+    width: 100px;
+    background: rgb(15, 116, 223);
+    margin: 5px 0px 0px 2px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+.addBtn{
+    height: 31px;
+    width: 150px;
+    background: rgb(15, 116, 223);
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+}
+.lists{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    border: 2px solid rgb(5, 6, 10);
+}
+
+.text{
+    font-size: 30px;
+    text-align: center;
+}
+
+.table{
+    margin: 0px auto;
+    text-align: center;
+    border-collapse: collapse;
+    width: 900px;
+    margin-bottom: 30px;
+}
+.table, th, td{
+    border: 1px solid black;
+}
+th, td{
+    height: 30px;
+}
+
+tr:nth-child(even) {
+    background-color: #54c2f5;
+}
+
+th {
+    background-color: rgb(9, 114, 252);
+    color: white;
+  }
